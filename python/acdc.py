@@ -5,6 +5,7 @@ class Acdc():
   def __init__(self, power_input=None):
     self.__clear()
     self.__pattern = "^\d*\.?\d+"
+    self.__ONE_HOUR = 1
     self.__units = [
         'lbs/twh','lbs/gwh','lbs/mwh','lbs/kwh','lbs/wh',
         'lbsco2e','gco2e',
@@ -68,5 +69,20 @@ class Acdc():
     elif to_unit == 'tw' or self.unit == 'terrawatts':
         self.unit = 'tw'
         self.value = self.basewatts / 1000 / 1000 / 1000 / 1000
+    elif to_unit == 'wh':
+        self.unit = 'wh'
+        self.value = (self.basewatts * self.__ONE_HOUR)
+    elif to_unit == 'kwh':
+        self.unit = 'kwh'
+        self.value = (self.basewatts * self.__ONE_HOUR) / 1000
+    elif to_unit == 'mwh':
+        self.unit = 'mwh'
+        self.value = (self.basewatts * self.__ONE_HOUR) / 1000 / 1000
+    elif to_unit == 'gwh':
+        self.unit = 'gwh'
+        self.value = (self.basewatts * self.__ONE_HOUR) / 1000 / 1000 / 1000
+    elif to_unit == 'twh':
+        self.unit = 'twh'
+        self.value = (self.basewatts * self.__ONE_HOUR) / 1000 / 1000 / 1000 / 1000
     else:
         print("ERROR: Can't determine unit: "+to_unit)
